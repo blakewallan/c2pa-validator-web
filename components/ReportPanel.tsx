@@ -1,5 +1,7 @@
 import type { Severity } from "c2pa-manifest-validator";
 import type { ValidateResponse } from "@/lib/api";
+import { classifyCompliance } from "@/lib/compliance";
+import { ComplianceBanner } from "./ComplianceBanner";
 import { ForensicCard } from "./ForensicCard";
 import { IssueItem } from "./IssueItem";
 import { ReportActions } from "./ReportActions";
@@ -8,9 +10,10 @@ import { SignatureCard } from "./SignatureCard";
 const SEVERITY_ORDER: Severity[] = ["error", "warning", "info"];
 
 export function ReportPanel({ data }: { data: ValidateResponse }) {
-  const { report, scan, signature } = data;
+  const { report, scan, signature, backend, source } = data;
 
   const verdict = buildVerdict(report.counts, signature);
+  const compliance = classifyCompliance(report, signature);
 
   const groups = SEVERITY_ORDER.map((sev) => ({
     severity: sev,
@@ -19,6 +22,7 @@ export function ReportPanel({ data }: { data: ValidateResponse }) {
 
   return (
     <div className="mt-8 space-y-6">
+      {/* Verdict summary (technical) + header actions */}
       <div
         className={`rounded-lg border p-5 ${verdict.toneClass}`}
         role="status"
@@ -26,8 +30,11 @@ export function ReportPanel({ data }: { data: ValidateResponse }) {
       >
         <div className="flex flex-wrap items-start justify-between gap-3">
           <div>
-            <div className="font-mono text-[10px] uppercase tracking-widest opacity-70">
-              Verdict
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="font-mono text-[10px] uppercase tracking-widest opacity-70">
+                {source}
+              </div>
+              <BackendBadge backend={backend} />
             </div>
             <div className="mt-1 text-lg font-semibold leading-snug">
               {verdict.title}
@@ -57,9 +64,12 @@ export function ReportPanel({ data }: { data: ValidateResponse }) {
         </div>
       </div>
 
+      {/* Regulatory verdict (lay audience) */}
+      <ComplianceBanner summary={compliance} />
+
       {signature ? <SignatureCard signature={signature} /> : null}
 
-      <ForensicCard scan={scan} />
+      {scan ? <ForensicCard scan={scan} /> : null}
 
       <div className="rounded-lg border border-ink-200 bg-white">
         <div className="border-b border-ink-200 px-5 py-3">
@@ -70,7 +80,7 @@ export function ReportPanel({ data }: { data: ValidateResponse }) {
 
         {report.issues.length === 0 ? (
           <p className="px-5 py-6 text-sm text-ink-600">
-            No issues raised. Every rule in the platform-url pack passed.
+            No issues raised. Every rule in the rule pack passed.
           </p>
         ) : (
           <div className="px-5">
@@ -87,6 +97,32 @@ export function ReportPanel({ data }: { data: ValidateResponse }) {
         )}
       </div>
     </div>
+  );
+}
+
+function BackendBadge({ backend }: { backend: ValidateResponse["backend"] }) {
+  const style =
+    backend.backend === "cai"
+      ? "bg-emerald-50 text-emerald-700 border-emerald-200"
+      : backend.backend === "native"
+        ? "bg-amber-50 text-amber-700 border-amber-200"
+        : "bg-ink-100 text-ink-700 border-ink-200";
+  const label =
+    backend.backend === "cai"
+      ? `CAI${backend.version ? ` · ${backend.version}` : ""}`
+      : backend.backend === "native"
+        ? "Native TS"
+        : "Platform URL";
+  return (
+    <span
+      title={backend.detail}
+      className={`inline-flex items-center rounded border px-1.5 py-0.5 font-mono text-[10px] uppercase tracking-widest ${style}`}
+    >
+      {label}
+      {backend.durationMs !== undefined ? (
+        <span className="ml-1.5 opacity-70">{backend.durationMs}ms</span>
+      ) : null}
+    </span>
   );
 }
 

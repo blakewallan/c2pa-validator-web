@@ -21,12 +21,12 @@ export default function HomePage() {
         </h1>
 
         <p className="mt-4 max-w-2xl text-base leading-relaxed text-ink-600">
-          Paste a TikTok or YouTube URL. We resolve zero-auth metadata, decode
-          the upload timestamp from the video ID, scan for AI hashtags and
-          keywords, and optionally pull the first 1&nbsp;MB of the CDN stream to
-          check for an embedded C2PA manifest. Output is a structured report
-          against EU AI Act Article&nbsp;50(4) and California SB-942 signaling
-          conventions.
+          Drop a video file or paste a TikTok / YouTube URL. We parse the C2PA
+          manifest with the Content Authenticity Initiative's reference
+          implementation, verify the COSE_Sign1 signature, and grade the
+          output against EU AI Act Article&nbsp;50 and California SB-942 — so
+          you see a regulation-level pass / fail, not just a pile of rule
+          outputs.
         </p>
       </header>
 
@@ -39,12 +39,12 @@ export default function HomePage() {
             body="This validates cryptographically-signed disclosure standards (C2PA, IPTC digital_source_type). It does not run a perceptual deepfake classifier."
           />
           <Fact
-            title="Zero-auth by default"
-            body="Uses only public oEmbed endpoints and unsigned URL parsing. No cookies, no API keys, no login walls. Fully reproducible from any terminal."
+            title="CAI-backed parsing"
+            body="Server-side parsing runs on @contentauth/c2pa-node (native Rust bindings to c2pa-rs, the reference implementation). Full format + signature coverage — MP4, MOV, JPEG, PNG, WebM, HEIF."
           />
           <Fact
-            title="Compliance-grade output"
-            body="Every issue cites its spec reference. Copy the JSON report into your case file, CI log, or governance dashboard."
+            title="Regulation-grade output"
+            body="EU AI Act Art. 50(2), Art. 50(4), and California SB-942 verdicts rendered as pass / fail / unknown with the evidence that drove each. Copy-paste into a case file, CI log, or governance dashboard."
           />
         </section>
 
