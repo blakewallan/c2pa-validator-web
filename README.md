@@ -1,8 +1,8 @@
 # c2pa-validator-web
 
-Browser front-end for the [`c2pa-manifest-validator`](../c2pa-manifest-validator) audit tool. Paste a TikTok or YouTube URL, upload an MP4 or sidecar claim, and get a regulator-grade report on whether the video carries machine-readable AI-disclosure signals (C2PA, IPTC `digital_source_type`) or only human-readable hints (hashtags, keywords).
+Web UI for the [`c2pa-manifest-validator`](../c2pa-manifest-validator) AI-disclosure compliance auditor. Drop a video or paste a TikTok / YouTube URL and get a per-regulation verdict — **EU AI Act Art. 50(2), Art. 50(4), California SB-942** — each with the evidence that drove pass / fail / unknown.
 
-> **Positioning.** This is the compliance-auditor UI, not a C2PA app SDK. For *building* content that carries C2PA credentials in your own web app, use [`@contentauth/c2pa-web`](https://github.com/contentauth/c2pa-js) — the Rust-backed reference SDK. For *auditing* whether content you or a partner produced is EU AI Act / SB-942 compliant, use this tool. See [`../c2pa-manifest-validator/README.md`](../c2pa-manifest-validator/README.md#how-we-relate-to-contentauthc2pa-web) for the full comparison, and [`../c2pa-manifest-validator/docs/INTEGRATION.md`](../c2pa-manifest-validator/docs/INTEGRATION.md) for our plan to consume `c2pa-rs` via WASM as an opt-in backend.
+> **What this is not.** It's not a general-purpose C2PA viewer — the CAI team already ships that at [contentcredentials.org/verify](https://contentcredentials.org/verify). It's a **regulatory auditor** on top of the same stack. Parsing and cryptography are delegated to `@contentauth/c2pa-node` (Rust bindings to `c2pa-rs`). The verdict logic, platform-URL forensics, IPTC XMP signal fusion, and regulation mapping are what this project adds on top.
 
 ## Quick start
 
