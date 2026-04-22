@@ -2,7 +2,7 @@
   "name": "c2pa-validator-web",
   "version": "0.1.0",
   "private": true,
-  "description": "Web frontend for c2pa-manifest-validator. Paste a TikTok/YouTube URL, get a compliance-grade AI-disclosure report.",
+  "description": "Browser front-end for the c2pa-manifest-validator audit tool. Paste a TikTok or YouTube URL, upload an MP4 or sidecar claim, and get a regulator-grade C2PA + AI-disclosure compliance report with canonical status codes, signer DN, hard-binding hash + ingredient chain verdicts, and EU AI Act / SB-942 findings.",
   "author": "Blake Allan",
   "license": "Apache-2.0",
   "scripts": {
