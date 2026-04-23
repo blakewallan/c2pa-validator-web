@@ -43,29 +43,26 @@ export function OrthogonalHeadline({
         <div>
           <div className="flex items-center gap-2">
             <Sparkle size="sm" />
-            <span className="eyebrow-mono text-aqua-200">
-              Finding № 1 &middot; Submitted for the record
-            </span>
+            <span className="eyebrow-mono text-aqua-200">Headline finding</span>
           </div>
           <h2 className="mt-2 font-display text-2xl font-semibold tracking-tight text-white sm:text-[32px]">
-            Two labels,{" "}
-            <span className="chrome-blue">two separate failures</span>
+            Stacking C2PA and XMP is{" "}
+            <span className="chrome-blue">not defense-in-depth</span>
           </h2>
         </div>
         <span className="aero-pill shrink-0">
           <span className="aero-led green" style={{ width: 7, height: 7 }} />
-          <span>4 test files carrying both labels</span>
+          <span>4 files, both labels</span>
         </span>
       </div>
 
       <p className="mt-3 max-w-3xl text-[14.5px] leading-[1.65] text-ink-100/90">
-        Industry best practice is to put <strong>both</strong> labels on a
-        file — the signed C2PA manifest and the older unsigned XMP tag —
-        on the theory that one will back the other up. The result below
-        shows this doesn&rsquo;t work. Each attack kills its own target
-        and leaves the other label completely untouched. Stacking the two
-        labels gives you two independent points of failure, not a single
-        resilient system.
+        The industry recommendation is to put both a signed C2PA manifest
+        and an unsigned IPTC XMP tag on every AI-generated file. The two
+        surgical strip attacks below show each label dies independently:
+        removing C2PA leaves XMP untouched and vice versa. Two labels
+        gives you two independent points of failure, not one resilient
+        system.
       </p>
 
       <div className="mt-6 overflow-hidden rounded-xl border border-white/12">

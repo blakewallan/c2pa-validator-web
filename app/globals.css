@@ -1,4 +1,4 @@
-@tailwind base;
+﻿@tailwind base;
 @tailwind components;
 @tailwind utilities;
 
@@ -17,7 +17,7 @@ body {
 body {
   color: #e6eef3;
   /*
-   * Dusk-oceanic gradient — straight out of late-90s Sony VAIO
+   * Dusk-oceanic gradient â€” straight out of late-90s Sony VAIO
    * "Digital Dream Kids" ad palette. Teal over deep navy with a
    * warm violet tail in the footer direction. Deliberately no
    * emerald: the earlier forest-green base was crowding every
@@ -53,7 +53,7 @@ body {
 }
 
 /*
- * Hero grid — silver/cyan pinpricks on the oceanic backdrop.
+ * Hero grid â€” silver/cyan pinpricks on the oceanic backdrop.
  * Dimmer than the old phosphor-green dot field so the navigation
  * and type sit on top rather than fight it.
  */
@@ -143,7 +143,7 @@ body {
       0 0 0 1px rgba(255, 255, 255, 0.14) !important;
   }
 
-  /* Tighten border treatment — on frosted glass, a dark 1px border
+  /* Tighten border treatment â€” on frosted glass, a dark 1px border
      looks wrong. Swap mid-gray borders for soft translucent white
      so panel edges catch light instead of looking drawn. */
   .border-ink-200 {
@@ -152,7 +152,7 @@ body {
 }
 
 /*
- * Glossy "Aqua" button — 180deg vertical gradient, white
+ * Glossy "Aqua" button â€” 180deg vertical gradient, white
  * specular highlight across the top half, soft drop shadow,
  * pill radius. This is the mid-2000s button.
  */
@@ -168,7 +168,7 @@ body {
   /*
    * Silvered aqua-blue gloss, not emerald. Matches the VAIO-era
    * "cold chrome + water" palette instead of the old iTunes-7
-   * green pill. Still the same top-bright → midline-dark → lift
+   * green pill. Still the same top-bright â†’ midline-dark â†’ lift
    * structure, just in sky/slate.
    */
   background: linear-gradient(
@@ -195,7 +195,7 @@ body {
   cursor: pointer;
 }
 .aero-btn::after {
-  /* Top-half glossy highlight — the famous aqua "wet" look. */
+  /* Top-half glossy highlight â€” the famous aqua "wet" look. */
   content: "";
   position: absolute;
   inset: 1px 1px 50% 1px;
@@ -223,7 +223,7 @@ body {
 }
 
 /*
- * Glass-pill badge — small status chip. Used for e.g. the header
+ * Glass-pill badge â€” small status chip. Used for e.g. the header
  * version marker, status dots, compliance tag.
  */
 .aero-pill {
@@ -250,7 +250,7 @@ body {
 }
 
 /*
- * Soft glowing LED dot — a classic Aero status light.
+ * Soft glowing LED dot â€” a classic Aero status light.
  */
 .aero-led {
   display: inline-block;
@@ -284,7 +284,7 @@ body {
 }
 
 /*
- * Pulse used by the live status LED — slow breathing, not
+ * Pulse used by the live status LED â€” slow breathing, not
  * a pixel-blink.
  */
 @keyframes aero-pulse {
@@ -296,7 +296,7 @@ body {
 }
 
 /*
- * Focus ring — aqua halo instead of hard phosphor square.
+ * Focus ring â€” aqua halo instead of hard phosphor square.
  */
 :focus-visible {
   outline: 2px solid rgba(103, 232, 249, 0.8);
@@ -354,7 +354,7 @@ body {
 }
 
 /*
- * Outlined display numeral — used for the poster-style marquee
+ * Outlined display numeral â€” used for the poster-style marquee
  * strip and giant dates. Hollow numeral, chrome-blue stroke, no
  * fill. Scaled generously to fill the signature strip.
  */
@@ -369,7 +369,7 @@ body {
 /*
  * Four-pointed sparkle glyph, CSS-only so it can be dropped into
  * any heading without a component import. Uses two crossed
- * gradient bars with a radial centre glow — the Y2K "blink" mark.
+ * gradient bars with a radial centre glow â€” the Y2K "blink" mark.
  */
 .sparkle {
   position: relative;
@@ -416,7 +416,7 @@ body {
 }
 
 /*
- * Uppercase monospace eyebrow label — the tiny "THIS PATH IS NOT
+ * Uppercase monospace eyebrow label â€” the tiny "THIS PATH IS NOT
  * MEANT TO..." copy block treatment from the poster. Wide
  * tracking, condensed, high-contrast.
  */
@@ -431,7 +431,7 @@ body {
 }
 
 /*
- * Thin horizontal rule with two chrome-blue endcaps — the
+ * Thin horizontal rule with two chrome-blue endcaps â€” the
  * "[==========]" divider from the poster's masthead.
  */
 .chrome-rule {
@@ -461,142 +461,4 @@ body {
 }
 .chrome-rule::after {
   right: 8%;
-}
-
-/*
- * VAIO-ad bottom-strip surface. Deep cold navy with a warm violet
- * tail (just like the "buy VAIO Online" footer bar), soft chrome
- * top edge, inner vignette. Drop this on the signature marquee
- * strip and any other panel that wants that print-ad-footer feel.
- */
-.vaio-surface {
-  background:
-    linear-gradient(
-      180deg,
-      rgba(30, 58, 93, 0.72) 0%,
-      rgba(20, 36, 64, 0.82) 55%,
-      rgba(22, 27, 56, 0.88) 100%
-    );
-  box-shadow:
-    inset 0 1px 0 0 rgba(191, 219, 254, 0.32),
-    inset 0 -1px 0 0 rgba(0, 0, 0, 0.35),
-    0 10px 28px -12px rgba(0, 0, 0, 0.55);
-}
-
-/*
- * "Digital Dream Kids" — the serif-italic tagline treatment from
- * the VAIO ad, set light and widely-spaced under a wordmark.
- */
-.tagline-italic {
-  font-family: "Lucida Grande", "Segoe UI", Georgia, "Times New Roman",
-    serif;
-  font-style: italic;
-  font-weight: 400;
-  letter-spacing: 0.01em;
-  color: rgba(191, 219, 254, 0.85);
-}
-
-/*
- * ============================================================
- * BUREAU / COMMITTEE TREATMENTS
- * ============================================================
- * Deadpan-bureaucratic chrome for the UI: rubber stamps, folio
- * filing marks in the corners, typewriter minute-blocks. A thin
- * Lynchian crimson sits against the oceanic navy — used sparingly
- * so the data stays the hero and the framing stays uncanny
- * rather than theatrical.
- */
-
-/*
- * Rotated rubber stamp — outlined crimson block with condensed
- * caps, faint bleed. Used via the <BureauStamp /> component on
- * top of the hero and above exhibits. Position / rotation set at
- * the call site.
- */
-.stamp {
-  display: inline-flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding: 6px 14px 4px 14px;
-  border: 2.5px solid rgba(220, 38, 38, 0.78);
-  color: rgba(248, 113, 113, 0.92);
-  font-family: "Lucida Grande", "Segoe UI", "Tahoma", sans-serif;
-  font-weight: 800;
-  letter-spacing: 0.22em;
-  text-transform: uppercase;
-  filter:
-    drop-shadow(0 0 1px rgba(220, 38, 38, 0.35))
-    drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
-  opacity: 0.92;
-  /* Tiny asymmetric distortions, like an under-inked stamp. */
-  box-shadow:
-    inset 0 0 0 1px rgba(220, 38, 38, 0.22),
-    0 0 0 0.5px rgba(220, 38, 38, 0.18);
-}
-.stamp::before {
-  /* Inner hairline frame — that double-rule look on rubber stamps. */
-  content: "";
-  position: absolute;
-  inset: 3px;
-  border: 1px solid rgba(220, 38, 38, 0.45);
-  pointer-events: none;
-}
-.stamp {
-  position: relative;
-}
-
-/*
- * Typewriter minute block. Monospace caps with wide tracking,
- * a left-rule and pale cream wash, like a photocopied memorandum.
- */
-.typewriter {
-  font-family: ui-monospace, "Courier New", Courier, monospace;
-  font-size: 12px;
-  letter-spacing: 0.08em;
-  line-height: 1.7;
-  color: rgba(232, 238, 243, 0.92);
-  background: linear-gradient(
-    180deg,
-    rgba(255, 251, 235, 0.035) 0%,
-    rgba(255, 251, 235, 0.02) 100%
-  );
-  border-left: 2px solid rgba(220, 38, 38, 0.55);
-  padding: 14px 18px;
-  position: relative;
-}
-.typewriter::before {
-  /* Thin top rule — like a ruled memo pad. */
-  content: "";
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  height: 1px;
-  background: linear-gradient(
-    90deg,
-    rgba(220, 38, 38, 0.4) 0%,
-    rgba(220, 38, 38, 0) 60%
-  );
-}
-.typewriter strong {
-  color: rgba(252, 165, 165, 0.95);
-  font-weight: 700;
-  letter-spacing: 0.16em;
-}
-
-/*
- * Folio mark — small uppercase filing tag for the page corners
- * and nav right-edge. Monospace, tight tracking, thin rule above.
- */
-.folio {
-  font-family: ui-monospace, "Courier New", Courier, monospace;
-  font-size: 10px;
-  letter-spacing: 0.18em;
-  text-transform: uppercase;
-  color: rgba(191, 219, 254, 0.75);
-  line-height: 1.35;
-}
-.folio .crimson {
-  color: rgba(248, 113, 113, 0.85);
 }

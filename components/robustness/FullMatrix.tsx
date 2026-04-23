@@ -86,7 +86,7 @@ export function FullMatrix({
       <div className="flex flex-wrap items-center justify-between gap-3">
         <div>
           <div className="text-[10.5px] uppercase tracking-[0.22em] text-aqua-200/80">
-            Exhibits &middot; All entries available for inspection
+            Full matrix &middot; click any cell for detail
           </div>
           <h2 className="mt-1 font-display text-xl font-semibold tracking-tight text-white">
             Every file, every attack

@@ -103,11 +103,6 @@ export default function HomePage() {
   );
 }
 
-/**
- * Frosted translucent top bar — the mid-2000s menu-bar look
- * (OS X Tiger / iTunes 7). Thin, glassy, with aqua status LEDs
- * aligned right as a soft-glowing hardware cue.
- */
 function TopBar() {
   return (
     <div className="sticky top-0 z-20 border-b border-white/10 bg-white/5 backdrop-blur-xl backdrop-saturate-150">
@@ -120,21 +115,9 @@ function TopBar() {
           <span className="chrome-blue font-display text-[15px] font-extrabold tracking-[0.02em]">
             AUDIT&middot;CO
           </span>
-          <span
-            aria-hidden="true"
-            className="tagline-italic hidden text-[11px] sm:inline"
-          >
-            Office of Provenance Affairs
-          </span>
         </Link>
         <NavTabs active="validator" />
-        <div className="hidden flex-col items-end leading-tight sm:flex">
-          <span className="folio">
-            File <span className="crimson">№ 0023-V</span>
-          </span>
-          <span className="folio opacity-70">s.2026</span>
-        </div>
-        <span aria-hidden="true" className="w-[86px] sm:hidden" />
+        <span aria-hidden="true" className="w-[86px]" />
       </div>
     </div>
   );
