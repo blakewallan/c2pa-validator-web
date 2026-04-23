@@ -2,27 +2,601 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * Mid-2000s Frutiger Aero on a deep-emerald base. Translucent
+ * frosted panels, glossy pill buttons, soft glow drop shadows,
+ * Lucida Grande / Segoe UI typography. Think iTunes 7 sitting on
+ * Mac OS X Tiger / Windows Vista chrome.
+ */
+
 html,
 body {
   height: 100%;
 }
 
 body {
-  background: #fafaf9;
-  color: #1b1a18;
+  color: #e6eef3;
+  /*
+   * Dusk-oceanic gradient — straight out of late-90s Sony VAIO
+   * "Digital Dream Kids" ad palette. Teal over deep navy with a
+   * warm violet tail in the footer direction. Deliberately no
+   * emerald: the earlier forest-green base was crowding every
+   * photograph of the UI.
+   */
+  background:
+    radial-gradient(
+      ellipse 90% 55% at 50% 0%,
+      rgba(34, 211, 238, 0.22) 0%,
+      transparent 65%
+    ),
+    radial-gradient(
+      ellipse 65% 45% at 100% 100%,
+      rgba(99, 102, 241, 0.18) 0%,
+      transparent 70%
+    ),
+    radial-gradient(
+      ellipse 50% 40% at 0% 85%,
+      rgba(148, 163, 184, 0.10) 0%,
+      transparent 70%
+    ),
+    linear-gradient(180deg, #0b2a3d 0%, #0a1a2c 55%, #060d18 100%);
+  background-attachment: fixed;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
+  letter-spacing: -0.005em;
 }
 
 ::selection {
-  background: #fef3c7;
-  color: #1b1a18;
+  background: rgba(165, 243, 252, 0.45);
+  color: #0a1a2c;
 }
 
+/*
+ * Hero grid — silver/cyan pinpricks on the oceanic backdrop.
+ * Dimmer than the old phosphor-green dot field so the navigation
+ * and type sit on top rather than fight it.
+ */
 .grid-bg {
   background-image:
-    linear-gradient(to right, rgba(27, 26, 24, 0.04) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(27, 26, 24, 0.04) 1px, transparent 1px);
-  background-size: 48px 48px;
+    radial-gradient(rgba(186, 216, 225, 0.09) 1px, transparent 1px);
+  background-size: 28px 28px;
+  background-position: -10px -10px;
+}
+
+/*
+ * ============================================================
+ * GLOBAL COMPONENT RESTYLE
+ * ============================================================
+ * Every `bg-white` card in the app paints as a frosted glass
+ * panel; every rounded/shadow combo becomes a Frutiger Aero
+ * lozenge. Achieved via @layer base selectors so none of the
+ * component files need edits.
+ */
+@layer base {
+  /* Frosted-white panel background with a subtle top-down sheen. */
+  .bg-white {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.94) 0%,
+      rgba(250, 253, 252, 0.88) 48%,
+      rgba(240, 250, 246, 0.9) 100%
+    ) !important;
+    backdrop-filter: blur(10px) saturate(1.2);
+    -webkit-backdrop-filter: blur(10px) saturate(1.2);
+  }
+  .bg-white\/90,
+  .bg-white\/80 {
+    background: linear-gradient(
+      180deg,
+      rgba(255, 255, 255, 0.82) 0%,
+      rgba(240, 250, 246, 0.78) 100%
+    ) !important;
+    backdrop-filter: blur(14px) saturate(1.25);
+    -webkit-backdrop-filter: blur(14px) saturate(1.25);
+  }
+
+  /* Soft Y2K radii everywhere. */
+  .rounded {
+    border-radius: 6px !important;
+  }
+  .rounded-sm {
+    border-radius: 4px !important;
+  }
+  .rounded-md {
+    border-radius: 8px !important;
+  }
+  .rounded-lg {
+    border-radius: 12px !important;
+  }
+  .rounded-xl {
+    border-radius: 16px !important;
+  }
+  .rounded-2xl {
+    border-radius: 22px !important;
+  }
+  .rounded-full {
+    border-radius: 9999px !important;
+  }
+
+  /* Frutiger Aero panel-lift shadows. Replace Tailwind's blurry
+     greys with drops that also carry a 1px inner white highlight. */
+  .shadow-sm {
+    box-shadow:
+      0 1px 0 0 rgba(255, 255, 255, 0.5) inset,
+      0 6px 16px -4px rgba(0, 0, 0, 0.3),
+      0 0 0 1px rgba(255, 255, 255, 0.1) !important;
+  }
+  .shadow,
+  .shadow-md {
+    box-shadow:
+      0 1px 0 0 rgba(255, 255, 255, 0.5) inset,
+      0 14px 32px -10px rgba(0, 0, 0, 0.4),
+      0 0 0 1px rgba(255, 255, 255, 0.12) !important;
+  }
+  .shadow-lg,
+  .shadow-xl,
+  .shadow-2xl {
+    box-shadow:
+      0 1px 0 0 rgba(255, 255, 255, 0.55) inset,
+      0 24px 48px -14px rgba(0, 0, 0, 0.5),
+      0 0 0 1px rgba(255, 255, 255, 0.14) !important;
+  }
+
+  /* Tighten border treatment — on frosted glass, a dark 1px border
+     looks wrong. Swap mid-gray borders for soft translucent white
+     so panel edges catch light instead of looking drawn. */
+  .border-ink-200 {
+    border-color: rgba(255, 255, 255, 0.35) !important;
+  }
+}
+
+/*
+ * Glossy "Aqua" button — 180deg vertical gradient, white
+ * specular highlight across the top half, soft drop shadow,
+ * pill radius. This is the mid-2000s button.
+ */
+.aero-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 9px 18px;
+  border: 1px solid rgba(0, 0, 0, 0.28);
+  border-radius: 999px;
+  /*
+   * Silvered aqua-blue gloss, not emerald. Matches the VAIO-era
+   * "cold chrome + water" palette instead of the old iTunes-7
+   * green pill. Still the same top-bright → midline-dark → lift
+   * structure, just in sky/slate.
+   */
+  background: linear-gradient(
+    180deg,
+    #bae6fd 0%,
+    #38bdf8 46%,
+    #0369a1 54%,
+    #0c4a6e 100%
+  );
+  color: white;
+  font-weight: 600;
+  font-size: 13.5px;
+  letter-spacing: 0.01em;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.6) inset,
+    0 -8px 12px -4px rgba(0, 0, 0, 0.22) inset,
+    0 6px 16px -4px rgba(12, 74, 110, 0.6),
+    0 0 0 1px rgba(0, 0, 0, 0.18);
+  transition:
+    transform 80ms ease,
+    filter 120ms ease,
+    box-shadow 120ms ease;
+  cursor: pointer;
+}
+.aero-btn::after {
+  /* Top-half glossy highlight — the famous aqua "wet" look. */
+  content: "";
+  position: absolute;
+  inset: 1px 1px 50% 1px;
+  border-radius: 999px 999px 60% 60% / 999px 999px 100% 100%;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.55) 0%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  pointer-events: none;
+}
+.aero-btn:hover:not(:disabled) {
+  filter: brightness(1.06) saturate(1.1);
+}
+.aero-btn:active:not(:disabled) {
+  transform: translateY(1px);
+  box-shadow:
+    0 2px 4px 0 rgba(0, 0, 0, 0.3) inset,
+    0 0 0 1px rgba(0, 0, 0, 0.2);
+}
+.aero-btn:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+  filter: grayscale(0.35);
+}
+
+/*
+ * Glass-pill badge — small status chip. Used for e.g. the header
+ * version marker, status dots, compliance tag.
+ */
+.aero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 999px;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.18) 0%,
+    rgba(255, 255, 255, 0.06) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  color: #eaf4ee;
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  backdrop-filter: blur(8px) saturate(1.2);
+  -webkit-backdrop-filter: blur(8px) saturate(1.2);
+  box-shadow:
+    0 1px 0 0 rgba(255, 255, 255, 0.2) inset,
+    0 2px 6px -2px rgba(0, 0, 0, 0.25);
+}
+
+/*
+ * Soft glowing LED dot — a classic Aero status light.
+ */
+.aero-led {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  background: radial-gradient(
+    circle at 35% 30%,
+    #ecfeff 0%,
+    #67e8f9 30%,
+    #22d3ee 60%,
+    #0891b2 100%
+  );
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.3),
+    0 0 10px 2px rgba(34, 211, 238, 0.55),
+    0 1px 0 0 rgba(255, 255, 255, 0.6) inset;
+}
+.aero-led.green {
+  background: radial-gradient(
+    circle at 35% 30%,
+    #d1fae5 0%,
+    #6ee7b7 30%,
+    #10b981 60%,
+    #047857 100%
+  );
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.3),
+    0 0 10px 2px rgba(16, 185, 129, 0.55),
+    0 1px 0 0 rgba(255, 255, 255, 0.6) inset;
+}
+
+/*
+ * Pulse used by the live status LED — slow breathing, not
+ * a pixel-blink.
+ */
+@keyframes aero-pulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.72; transform: scale(0.92); }
+}
+.pulse {
+  animation: aero-pulse 2.2s ease-in-out infinite;
+}
+
+/*
+ * Focus ring — aqua halo instead of hard phosphor square.
+ */
+:focus-visible {
+  outline: 2px solid rgba(103, 232, 249, 0.8);
+  outline-offset: 3px;
+  border-radius: inherit;
+}
+
+/*
+ * ============================================================
+ * POSTER / Y2K DISPLAY TREATMENTS
+ * ============================================================
+ * Euro-rave / sportswear-flyer motifs layered on top of the
+ * existing Frutiger-Aero system: chrome-blue masthead text,
+ * four-pointed sparkle accents, outlined display numerals,
+ * and monospace small-caps eyebrow labels.
+ */
+
+.chrome-blue {
+  background: linear-gradient(
+    180deg,
+    #eff6ff 0%,
+    #bfdbfe 18%,
+    #60a5fa 42%,
+    #1d4ed8 56%,
+    #2563eb 70%,
+    #93c5fd 88%,
+    #eff6ff 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.25);
+  filter:
+    drop-shadow(0 1px 0 rgba(255, 255, 255, 0.45))
+    drop-shadow(0 4px 10px rgba(37, 99, 235, 0.45));
+  letter-spacing: -0.02em;
+}
+
+.chrome-silver {
+  background: linear-gradient(
+    180deg,
+    #ffffff 0%,
+    #e5e7eb 22%,
+    #9ca3af 48%,
+    #4b5563 58%,
+    #9ca3af 72%,
+    #e5e7eb 100%
+  );
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  filter: drop-shadow(0 1px 0 rgba(255, 255, 255, 0.5));
+}
+
+/*
+ * Outlined display numeral — used for the poster-style marquee
+ * strip and giant dates. Hollow numeral, chrome-blue stroke, no
+ * fill. Scaled generously to fill the signature strip.
+ */
+.outline-num {
+  -webkit-text-stroke: 2px rgba(147, 197, 253, 0.9);
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  letter-spacing: 0.02em;
+  filter: drop-shadow(0 2px 12px rgba(37, 99, 235, 0.35));
+}
+
+/*
+ * Four-pointed sparkle glyph, CSS-only so it can be dropped into
+ * any heading without a component import. Uses two crossed
+ * gradient bars with a radial centre glow — the Y2K "blink" mark.
+ */
+.sparkle {
+  position: relative;
+  display: inline-block;
+  width: 1em;
+  height: 1em;
+  vertical-align: -0.08em;
+}
+.sparkle::before,
+.sparkle::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+      closest-side,
+      rgba(255, 255, 255, 0.95) 0%,
+      rgba(147, 197, 253, 0.7) 40%,
+      rgba(37, 99, 235, 0) 72%
+    ),
+    linear-gradient(
+      90deg,
+      rgba(37, 99, 235, 0) 44%,
+      rgba(219, 234, 254, 0.95) 50%,
+      rgba(37, 99, 235, 0) 56%
+    );
+  filter: drop-shadow(0 0 4px rgba(147, 197, 253, 0.9));
+}
+.sparkle::after {
+  background: linear-gradient(
+    0deg,
+    rgba(37, 99, 235, 0) 44%,
+    rgba(219, 234, 254, 0.95) 50%,
+    rgba(37, 99, 235, 0) 56%
+  );
+  filter: drop-shadow(0 0 4px rgba(147, 197, 253, 0.9));
+}
+.sparkle.sm {
+  width: 0.65em;
+  height: 0.65em;
+}
+.sparkle.lg {
+  width: 1.4em;
+  height: 1.4em;
+}
+
+/*
+ * Uppercase monospace eyebrow label — the tiny "THIS PATH IS NOT
+ * MEANT TO..." copy block treatment from the poster. Wide
+ * tracking, condensed, high-contrast.
+ */
+.eyebrow-mono {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas,
+    monospace;
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  line-height: 1.55;
+}
+
+/*
+ * Thin horizontal rule with two chrome-blue endcaps — the
+ * "[==========]" divider from the poster's masthead.
+ */
+.chrome-rule {
+  position: relative;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(147, 197, 253, 0) 0%,
+    rgba(147, 197, 253, 0.7) 10%,
+    rgba(147, 197, 253, 0.7) 90%,
+    rgba(147, 197, 253, 0) 100%
+  );
+}
+.chrome-rule::before,
+.chrome-rule::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 6px;
+  height: 6px;
+  transform: translateY(-50%) rotate(45deg);
+  background: linear-gradient(135deg, #bfdbfe 0%, #1d4ed8 100%);
+  box-shadow: 0 0 8px rgba(37, 99, 235, 0.6);
+}
+.chrome-rule::before {
+  left: 8%;
+}
+.chrome-rule::after {
+  right: 8%;
+}
+
+/*
+ * VAIO-ad bottom-strip surface. Deep cold navy with a warm violet
+ * tail (just like the "buy VAIO Online" footer bar), soft chrome
+ * top edge, inner vignette. Drop this on the signature marquee
+ * strip and any other panel that wants that print-ad-footer feel.
+ */
+.vaio-surface {
+  background:
+    linear-gradient(
+      180deg,
+      rgba(30, 58, 93, 0.72) 0%,
+      rgba(20, 36, 64, 0.82) 55%,
+      rgba(22, 27, 56, 0.88) 100%
+    );
+  box-shadow:
+    inset 0 1px 0 0 rgba(191, 219, 254, 0.32),
+    inset 0 -1px 0 0 rgba(0, 0, 0, 0.35),
+    0 10px 28px -12px rgba(0, 0, 0, 0.55);
+}
+
+/*
+ * "Digital Dream Kids" — the serif-italic tagline treatment from
+ * the VAIO ad, set light and widely-spaced under a wordmark.
+ */
+.tagline-italic {
+  font-family: "Lucida Grande", "Segoe UI", Georgia, "Times New Roman",
+    serif;
+  font-style: italic;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: rgba(191, 219, 254, 0.85);
+}
+
+/*
+ * ============================================================
+ * BUREAU / COMMITTEE TREATMENTS
+ * ============================================================
+ * Deadpan-bureaucratic chrome for the UI: rubber stamps, folio
+ * filing marks in the corners, typewriter minute-blocks. A thin
+ * Lynchian crimson sits against the oceanic navy — used sparingly
+ * so the data stays the hero and the framing stays uncanny
+ * rather than theatrical.
+ */
+
+/*
+ * Rotated rubber stamp — outlined crimson block with condensed
+ * caps, faint bleed. Used via the <BureauStamp /> component on
+ * top of the hero and above exhibits. Position / rotation set at
+ * the call site.
+ */
+.stamp {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 14px 4px 14px;
+  border: 2.5px solid rgba(220, 38, 38, 0.78);
+  color: rgba(248, 113, 113, 0.92);
+  font-family: "Lucida Grande", "Segoe UI", "Tahoma", sans-serif;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  filter:
+    drop-shadow(0 0 1px rgba(220, 38, 38, 0.35))
+    drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
+  opacity: 0.92;
+  /* Tiny asymmetric distortions, like an under-inked stamp. */
+  box-shadow:
+    inset 0 0 0 1px rgba(220, 38, 38, 0.22),
+    0 0 0 0.5px rgba(220, 38, 38, 0.18);
+}
+.stamp::before {
+  /* Inner hairline frame — that double-rule look on rubber stamps. */
+  content: "";
+  position: absolute;
+  inset: 3px;
+  border: 1px solid rgba(220, 38, 38, 0.45);
+  pointer-events: none;
+}
+.stamp {
+  position: relative;
+}
+
+/*
+ * Typewriter minute block. Monospace caps with wide tracking,
+ * a left-rule and pale cream wash, like a photocopied memorandum.
+ */
+.typewriter {
+  font-family: ui-monospace, "Courier New", Courier, monospace;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  line-height: 1.7;
+  color: rgba(232, 238, 243, 0.92);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 251, 235, 0.035) 0%,
+    rgba(255, 251, 235, 0.02) 100%
+  );
+  border-left: 2px solid rgba(220, 38, 38, 0.55);
+  padding: 14px 18px;
+  position: relative;
+}
+.typewriter::before {
+  /* Thin top rule — like a ruled memo pad. */
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    rgba(220, 38, 38, 0.4) 0%,
+    rgba(220, 38, 38, 0) 60%
+  );
+}
+.typewriter strong {
+  color: rgba(252, 165, 165, 0.95);
+  font-weight: 700;
+  letter-spacing: 0.16em;
+}
+
+/*
+ * Folio mark — small uppercase filing tag for the page corners
+ * and nav right-edge. Monospace, tight tracking, thin rule above.
+ */
+.folio {
+  font-family: ui-monospace, "Courier New", Courier, monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(191, 219, 254, 0.75);
+  line-height: 1.35;
+}
+.folio .crimson {
+  color: rgba(248, 113, 113, 0.85);
 }

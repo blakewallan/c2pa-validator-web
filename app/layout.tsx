@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "C2PA Manifest Validator",
+  title: "c2pa-validator // AI-disclosure compliance auditor",
   description:
-    "Paste a TikTok or YouTube URL and check whether the video carries machine-readable AI-disclosure signals (C2PA, IPTC) or only hashtags.",
+    "Drop a video or paste a TikTok / YouTube URL. Get a regulation-level pass / fail against EU AI Act Art. 50 and California SB-942.",
 };
 
 export default function RootLayout({
@@ -14,7 +14,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className="min-h-full font-sans">{children}</body>
+      <body className="min-h-full font-sans antialiased">{children}</body>
     </html>
   );
 }
